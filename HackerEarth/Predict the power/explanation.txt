@@ -1,0 +1,22 @@
+My approach:
+----------------------------
+I used Deep Neural Network for training the model (although it is not a good choice for structured data). After filling the missing values and converting some columns' values, I created a custom pipeline for the model and trained on it. There was not much feature engineering involved.
+At the end of the notebook, I have created a function (test_data_prediction) for processing the test data and return the predictions from it. The parameters are- 1. test data (pandas dataframe) 2. categories (this variables is defined in above cells, just pass it in the function) 3. model (this is the trained model, just pass it in the function)
+
+Feature Engineering Methods:
+----------------------------
+To fill the missing values, I used mean values of corresponding column in case of numerical features. In case of categorical features, I just replaced the missing values with "Missing".
+As the features ['atmospheric_temperature(°C)', 'shaft_temperature(°C)', 'gearbox_temperature(°C)', 'engine_temperature(°C)', 'generator_temperature(°C)', 'area_temperature(°C)', 'windmill_body_temperature(°C)'] are in Celsius unit, I converted them into Kelvin unit. (x degree Celsius = x+273.15 Kelvin)
+The features ['blades_angle(°)', 'wind_direction(°)'] are in Degree. I converted them into Radian. (x Degree = x*(pi/180) Radian and pi/180=0.01745)
+The "categorify" function converts the categorical features into a categorical format that Tensorflow can recognize. The "apply_test" function applies the variable "categories" (that the "categorify" function returned) into the test data.
+The "get_emb_sz" function was defined following Jeremy Howard's "Introduction to Machine Learning for Coders" course. This function will define the required embedding size for each categorical feature.
+Finally, I created Embedding layer using Tensorflow for every categorical feature and concatenated all the embeddings into a single list for passing into the model.
+At first I used Dropout units for hidden layers, but ommited them for better result.
+
+Tools:
+----------------------------
+Python 3.x
+Numpy
+Pandas
+Sci-kit learn
+Tensorflow 2.x
